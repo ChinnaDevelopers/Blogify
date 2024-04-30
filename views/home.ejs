@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('./partials/head') %>
+    <title>Home Page</title>
+    <style>
+      #signin,
+      #signup {
+        display: none;
+      }
+    </style>
+  </head>
+  <body class="bg-dark">
+    <%- include('./partials/nav') %>
+
+    <div id="signin"><%- include('./partials/signin') %></div>
+    <div id="signup"><%- include('./partials/signup') %></div>
+    <script>
+      function toggleAuthDiv(page) {
+        var signin = document.getElementById("signin");
+        var signup = document.getElementById("signup");
+        if (page === "signin") {
+          signin.style.display = "block";
+          signup.style.display = "none";
+        } else if (page === "signup") {
+          signup.style.display = "block";
+          signin.style.display = "none";
+        }
+      }
+    </script>
+    <%- include('./partials/script') %>
+  </body>
+</html>

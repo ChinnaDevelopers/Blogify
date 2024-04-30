@@ -1,0 +1,52 @@
+<div class="container mt-5" data-bs-theme="dark">
+  <div class="row">
+    <div class="col-md-6 m-auto">
+      <div class="card card-body">
+        <h1 class="text-center mb-3 text-white">
+          <i class="fas fa-user-plus"></i> Signup
+        </h1>
+        <form action="/user/signup" method="POST">
+          <div class="form-group">
+            <label for="fullName">Full Name</label>
+            <input
+              type="fullName"
+              id="fullName"
+              name="fullName"
+              class="form-control"
+              placeholder="Enter Full Name"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              class="form-control"
+              placeholder="Enter Email"
+              required
+            />
+          </div>
+          <div class="form-group mb-4">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              class="form-control"
+              placeholder="Create Password"
+              required
+            />
+          </div>
+          <button type="submit" class="btn btn-primary btn-block bg-dark">
+            Signup
+          </button>
+        </form>
+        <p class="lead mt-3 text-white">
+          Have An Account? <a href="/user/signin">Signin</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
