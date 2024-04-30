@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <%- include('./partials/head') %>
+    <title>Verify OPT</title>
+  </head>
+  <body class="bg-dark">
+    <%- include('./partials/nav') %>
+
+    <div class="">
+      <h1 class="text-center text-white my-4">Verify OTP</h1>
+      <% if (error) { %>
+      <p class="alert alert-danger"><%= error %></p>
+      <% } %>
+      <form
+        action="/user/verify/<%= token %>"
+        method="POST"
+        class="mx-auto"
+        style="max-width: 300px"
+      >
+        <div class="form-group">
+          <input
+            type="text"
+            name="OTP"
+            placeholder="Enter OTP"
+            class="form-control"
+          />
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Verify</button>
+      </form>
+    </div>
+    <%- include('./partials/script') %>
+  </body>
+</html>

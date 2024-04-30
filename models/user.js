@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const { createHmac, randomBytes } = require("crypto");
+const jwt = require("jsonwebtoken");
 
 const userSchema = new mongoose.Schema(
   {
@@ -11,6 +12,9 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
       unique: true,
+    },
+    OTP: {
+      type: Number,
     },
     salt: {
       type: String,
@@ -47,6 +51,12 @@ userSchema.methods.verifyPassword = function (password) {
     this.password ===
     createHmac("sha256", this.salt).update(password).digest("hex")
   );
+};
+
+userSchema.methods.createJWTToken = function () {
+  return jwt.sign({ _id: this._id }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRES,
+  });
 };
 
 module.exports = mongoose.model("User", userSchema);
