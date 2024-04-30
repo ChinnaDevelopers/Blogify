@@ -51,8 +51,8 @@ exports.signin = async (req, res) => {
 };
 
 exports.getProfile = async (req, res) => {
-  const blogs = await Blog.find({ createdBy: req.user._id });
+  const blogs = await Blog.find({ createdBy: req.user._id }).sort({
+    createdAt: -1,
+  });
   res.render("home", { user: req.user, blogs });
 };
-
-

@@ -15,7 +15,7 @@
               <h3 class="text-center">Edit Blog - <%= blog.title %></h3>
             </div>
             <div class="card-body">
-              <form id="updateForm">
+              <form id="updateForm" enctype="multipart/form-data">
                 <div class="mb-3">
                   <label for="title" class="form-label">Title</label>
                   <input
@@ -38,6 +38,20 @@
                   >
 <%= blog.content %></textarea
                   >
+                </div>
+                <div class="mb-3">
+                  <label for="image" class="form-label">Image</label>
+                  <input
+                    type="file"
+                    class="form-control"
+                    id="image"
+                    name="image"
+                  />
+                  <img
+                    src="<%= blog.image %>"
+                    alt="Blog"
+                    style="width: 100%; height: auto; margin-top: 10px"
+                  />
                 </div>
                 <button id="updateButton" type="submit" class="btn btn-primary">
                   Update
@@ -62,12 +76,19 @@
           const content = document.querySelector(
             'textarea[name="content"]'
           ).value;
+          const image = document.querySelector('input[name="image"]').files[0];
+
+          const formData = new FormData();
+          formData.append("title", title);
+          formData.append("content", content);
+          if (image) {
+            formData.append("prevImage", "<%= blog.image %>"); // send previous image to delete it
+            formData.append("image", image);
+          }
+
           fetch("/blog/update/<%= blog._id %>", {
             method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ title, content }),
+            body: formData,
           })
             .then((response) => response.json())
             .then((data) => {
@@ -82,9 +103,12 @@
       document
         .getElementById("deleteButton")
         .addEventListener("click", function () {
-          fetch("/blog/delete/<%= blog._id %>", {
-            method: "DELETE",
-          })
+          fetch(
+            "/blog/delete/<%= blog._id %>?prevImage=<%= encodeURIComponent(blog.image) %>",
+            {
+              method: "DELETE",
+            }
+          )
             .then((response) => response.json())
             .then((data) => {
               if (data.success) {
