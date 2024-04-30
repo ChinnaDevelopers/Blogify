@@ -22,7 +22,7 @@
         </li>
         <% if (user) { %>
         <li class="nav-item">
-          <a class="nav-link" href="#">Add Blog</a>
+          <a class="nav-link" href="/blog/addBlog">Add Blog</a>
         </li>
         <li class="nav-item dropdown">
           <a
@@ -35,8 +35,20 @@
             User
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/user/signout">Signout</a></li>
+            <li>
+              <a class="dropdown-item text-danger" href="/user/signout"
+                >Signout</a
+              >
+            </li>
           </ul>
+        </li>
+        <li class="nav-item">
+          <img
+            src="<%= user.profilePicture %>"
+            alt="Profile"
+            class="rounded-circle"
+            style="width: 40px; height: 40px"
+          />
         </li>
         <% } else { %>
         <li class="nav-item">

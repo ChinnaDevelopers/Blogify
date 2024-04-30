@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const Blog = require("../models/blog");
 const sendMail = require("../utils/sendMail");
 const createToken = require("../utils/createToken");
 const jwt = require("jsonwebtoken");
@@ -29,7 +30,7 @@ exports.verify = async (req, res) => {
     await user.save();
 
     createToken(user, res);
-    return res.render("home", { user });
+    return res.redirect("/user/profile");
   } else {
     return res.render("verify", { token, error: "Invalid OTP", user: null });
   }
@@ -50,5 +51,8 @@ exports.signin = async (req, res) => {
 };
 
 exports.getProfile = async (req, res) => {
-  res.render("home", { user: req.user });
+  const blogs = await Blog.find({ createdBy: req.user._id });
+  res.render("home", { user: req.user, blogs });
 };
+
+
