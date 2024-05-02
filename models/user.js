@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema(
       unique: true,
     },
     OTP: {
-      type: Number,
+      type: String,
     },
     salt: {
       type: String,

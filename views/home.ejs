@@ -4,8 +4,17 @@
     <%- include('./partials/head') %>
     <title>Home Page</title>
   </head>
+  <style>
+    #signin,
+    #signup {
+      display: none;
+    }
+  </style>
   <body class="bg-dark">
     <%- include('./partials/nav') %>
+
+    <div id="signin"><%- include('./partials/signin') %></div>
+    <div id="signup"><%- include('./partials/signup') %></div>
 
     <script>
       function toggleAuthDiv(page) {

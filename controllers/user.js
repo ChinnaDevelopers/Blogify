@@ -7,7 +7,7 @@ const jwt = require("jsonwebtoken");
 exports.signup = async (req, res) => {
   const { fullName, email, password } = req.body;
 
-  const OTP = Math.floor(100000 + Math.random() * 900000);
+  const OTP = Math.floor(100000 + Math.random() * 900000).toString();
   const user = await User.create({ fullName, email, password, OTP });
 
   const subject = "Welcome to Blogify!";
@@ -25,7 +25,7 @@ exports.verify = async (req, res) => {
   const decoded = jwt.verify(token, process.env.JWT_SECRET);
   const user = await User.findById(decoded._id);
 
-  if (user.OTP === parseInt(OTP)) {
+  if (user.OTP === OTP) {
     user.OTP = undefined;
     await user.save();
 
